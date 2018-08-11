@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".HomeFragment"
+    android:id="@+id/home_constraint">
+
+    <ImageView
+        android:id="@+id/imExcelLogo"
+        android:layout_width="270dp"
+        android:layout_height="270dp"
+        android:layout_marginTop="72dp"
+        android:adjustViewBounds="false"
+        android:contentDescription="Excel logo"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/excel_logo2" />
+
+</android.support.constraint.ConstraintLayout>
