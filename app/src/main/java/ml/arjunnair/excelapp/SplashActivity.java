@@ -44,7 +44,7 @@ public class SplashActivity extends AppCompatActivity {
         circleMenu.setEventListener(new CircleMenuView.EventListener() {
 
             @Override
-            public void onButtonClickAnimationEnd(@NonNull CircleMenuView view, int index) {
+            public void onButtonClickAnimationStart(@NonNull CircleMenuView view, int index) {
                 Log.d("D", "onButtonClickAnimationEnd| index: " + index);
                 changeFragment(index);
             }

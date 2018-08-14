@@ -4,4 +4,16 @@
     <color name="colorPrimaryDark">#32756D</color>
     <color name="colorAccent">#75DDDD</color>
     <color name="colorBackground">#C9DAEA</color>
+
+    <!--Highlight and background colors-->
+    <color name="cse_highlight_color">#FF420E</color>
+    <color name="cse_background_color">#80f98866</color>
+    <color name="ece_highlight_color">#07575b</color>
+    <color name="ece_background_color">#8066a5ad</color>
+    <color name="bme_highlight_color">#f0ad0f</color>
+    <color name="bme_background_color">#80e6df44</color>
+    <color name="eee_highlight_color">#486b00</color>
+    <color name="eee_background_color">#80a2c523</color>
+    <color name="default_highlight_color">#a0a0a0</color>
+    <color name="default_background_color">#801a1a1a</color>
 </resources>
