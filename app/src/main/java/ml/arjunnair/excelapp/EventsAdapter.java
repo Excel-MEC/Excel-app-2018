@@ -24,54 +24,63 @@ import static android.support.constraint.Constraints.TAG;
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHolder> {
 
-        private Context mContext;
-        private List<Event> eventList;
+    private Context mContext;
+    private List<Event> eventList;
 
-        public class MyViewHolder extends RecyclerView.ViewHolder {
-            public RelativeLayout layout;
-            public TextView name;
-            public ImageView thumbnail;
-            public ImageView highlightBulb;
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        public RelativeLayout layout;
+        public TextView name;
+        public ImageView thumbnail;
+        public ImageView highlightBulb;
 
-            public MyViewHolder(View view) {
-                super(view);
-                layout = (RelativeLayout) view.findViewById(R.id.card_layout);
-                name = (TextView) view.findViewById(R.id.title);
-                thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
-                highlightBulb = (ImageView) view.findViewById(R.id.highlight_bulb);
-            }
+        public MyViewHolder(View view) {
+            super(view);
+            layout = (RelativeLayout) view.findViewById(R.id.card_layout);
+            name = (TextView) view.findViewById(R.id.title);
+            thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
+            highlightBulb = (ImageView) view.findViewById(R.id.highlight_bulb);
         }
+    }
 
-        public EventsAdapter(Context mContext, List<Event> eventList) {
-            this.mContext = mContext;
-            this.eventList = eventList;
-        }
+    public EventsAdapter(Context mContext, List<Event> eventList) {
+        this.mContext = mContext;
+        this.eventList = eventList;
+    }
 
-        @Override
-        public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View itemView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.event_card, parent, false);
+    public List<Event> getEvents() {
+        return eventList;
+    }
 
-            return new MyViewHolder(itemView);
-        }
+    public void setEvents(List<Event> eventList) {
+        this.eventList = eventList;
+    }
 
-        @Override
-        public void onBindViewHolder(final MyViewHolder holder, int position) {
-            Event event = eventList.get(position);
-            holder.name.setText(event.getName());
+    @Override
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.event_card, parent, false);
 
-            int highlightColor = mContext.getResources().getColor(event.highlightColor());
-            int backgroundColor = mContext.getResources().getColor(event.backgroundColor());
-            ((GradientDrawable)holder.highlightBulb.getDrawable()).setColor(highlightColor);
-            ((GradientDrawable)holder.layout.getBackground()).setColor(backgroundColor);
+        return new MyViewHolder(itemView);
+    }
 
-            Glide.with(mContext).load(event.getThumbnail()).into(holder.thumbnail);
+    @Override
+    public void onBindViewHolder(final MyViewHolder holder, int position) {
+        Event event = eventList.get(position);
+        holder.name.setText(event.getName());
 
-        }
+        int highlightColor = event.highlightColor(mContext);
+        int backgroundColor = event.backgroundColor(mContext);
+        ((GradientDrawable)holder.highlightBulb.getDrawable()).setColor(highlightColor);
+        ((GradientDrawable)holder.layout.getBackground()).setColor(backgroundColor);
+
+        Glide.with(mContext).load(event.getThumbnail()).into(holder.thumbnail);
+
+    }
 
     @Override
     public int getItemCount() {
         return eventList.size();
     }
+
 
 }

@@ -16,4 +16,7 @@
     <color name="eee_background_color">#80a2c523</color>
     <color name="default_highlight_color">#a0a0a0</color>
     <color name="default_background_color">#801a1a1a</color>
+    <color name="date1_color">#d50000</color>
+    <color name="date2_color">#64dd17</color>
+    <color name="date3_color">#6200ea</color>
 </resources>
