@@ -2,10 +2,14 @@ package ml.arjunnair.excelapp.adapter;
 
 
 import android.content.Context;
+import android.graphics.Color;
+import android.support.constraint.ConstraintLayout;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -14,66 +18,91 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import ml.arjunnair.excelapp.Event;
 import ml.arjunnair.excelapp.R;
-import ml.arjunnair.excelapp.json_models.Competition;
+import ml.arjunnair.excelapp.models.Competition;
 
-public class CompetitionsAdapter extends ArrayAdapter<Competition> {
+import static android.content.ContentValues.TAG;
 
-    List<Competition> contactList;
-    Context context;
-    private LayoutInflater mInflater;
+public class CompetitionsAdapter extends RecyclerView.Adapter<CompetitionsAdapter.MyViewHolder> {
+
+    private Context mContext;
+    private List<Competition> competitionList;
 
     // Constructors
-    public CompetitionsAdapter (Context context, List<Competition> objects) {
-        super(context, 0, objects);
-        this.context = context;
-        this.mInflater = LayoutInflater.from(context);
-        contactList = objects;
+    public CompetitionsAdapter(Context mContext, List<Competition> competitionList) {
+        this.mContext = mContext;
+        this.competitionList = competitionList;
+    }
+    public List<Competition> getEvents() {
+        return competitionList;
+    }
+
+    public void setCompetitions(List<Competition> eventList) {
+        this.competitionList = eventList;
     }
 
     @Override
-    public Competition getItem(int position) {
-        return contactList.get(position);
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.competition_card, parent, false);
+
+        return new MyViewHolder(itemView);
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        final ViewHolder vh;
-        if (convertView == null) {
-            View view = mInflater.inflate(R.layout.competition_row_view, parent, false);
-            vh = ViewHolder.create((RelativeLayout) view);
-            view.setTag(vh);
-        } else {
-            vh = (ViewHolder) convertView.getTag();
+    public void onBindViewHolder(final MyViewHolder holder, int position) {
+
+        Competition competition = competitionList.get(position);
+
+        holder.title.setText(competition.getName());
+        holder.department.setText(competition.getDepartment());
+        holder.category.setText(competition.getCategory());
+
+        int bg_color = ContextCompat.getColor(mContext, R.color.others_bg);
+        switch (competition.getDepartment()) {
+            case "Non-Tech":
+                bg_color = ContextCompat.getColor(mContext, R.color.non_tech_bg);
+                break;
+            case "Electronics":
+                bg_color = ContextCompat.getColor(mContext, R.color.electronics_bg);
+                break;
+            case "Robotics":
+                bg_color = ContextCompat.getColor(mContext, R.color.robotics_bg);
+                break;
+            case "Computer Science":
+                bg_color = ContextCompat.getColor(mContext, R.color.computer_science_bg);
         }
+        holder.layout.setBackgroundColor(bg_color);
 
-        Competition item = getItem(position);
+        Picasso.with(mContext).load(competition.getImg())
+                .placeholder(R.drawable.excel_logo2)
+                .error(R.drawable.excel_logo2)
+                .into(holder.logo);
 
-        vh.textViewName.setText(item.getName());
-        vh.textViewEmail.setText(item.getDepartment());
-        Picasso.with(context).load(item.getImg()).placeholder(R.mipmap.ic_launcher).error(R.mipmap.ic_launcher).into(vh.imageView);
-
-        return vh.rootView;
     }
 
-    private static class ViewHolder {
-        public final RelativeLayout rootView;
-        public final ImageView imageView;
-        public final TextView textViewName;
-        public final TextView textViewEmail;
+    @Override
+    public int getItemCount() {
+        return competitionList.size();
+    }
 
-        private ViewHolder(RelativeLayout rootView, ImageView imageView, TextView textViewName, TextView textViewEmail) {
-            this.rootView = rootView;
-            this.imageView = imageView;
-            this.textViewName = textViewName;
-            this.textViewEmail = textViewEmail;
-        }
 
-        public static ViewHolder create(RelativeLayout rootView) {
-            ImageView imageView = (ImageView) rootView.findViewById(R.id.imageView);
-            TextView textViewName = (TextView) rootView.findViewById(R.id.textViewName);
-            TextView textViewEmail = (TextView) rootView.findViewById(R.id.textViewEmail);
-            return new ViewHolder(rootView, imageView, textViewName, textViewEmail);
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        public ConstraintLayout layout;
+        public ImageView logo;
+        public TextView title;
+        public TextView department;
+        public TextView category;
+
+        public MyViewHolder(View view) {
+            super(view);
+            layout = view.findViewById(R.id.layout);
+            logo = view.findViewById(R.id.imageView);
+            title = view.findViewById(R.id.title);
+            department= view.findViewById(R.id.department);
+            category = view.findViewById(R.id.category);
         }
     }
 }

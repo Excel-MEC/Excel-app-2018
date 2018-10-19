@@ -1,28 +1,36 @@
-package ml.arjunnair.excelapp.json_models;
-
+package ml.arjunnair.excelapp.models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Contributor {
+public class CreatedBy {
 
     @SerializedName("username")
+    @Expose
     private String username;
     @SerializedName("email")
+    @Expose
     private String email;
     @SerializedName("lang")
+    @Expose
     private String lang;
     @SerializedName("template")
+    @Expose
     private String template;
     @SerializedName("id_ref")
+    @Expose
     private String idRef;
     @SerializedName("provider")
+    @Expose
     private String provider;
     @SerializedName("id")
+    @Expose
     private Integer id;
     @SerializedName("createdAt")
+    @Expose
     private String createdAt;
     @SerializedName("updatedAt")
+    @Expose
     private String updatedAt;
 
     public String getUsername() {

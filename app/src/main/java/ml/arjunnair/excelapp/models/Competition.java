@@ -1,4 +1,4 @@
-package ml.arjunnair.excelapp.json_models;
+package ml.arjunnair.excelapp.models;
 
 import java.util.List;
 

@@ -5,6 +5,14 @@
     <color name="colorAccent">#75DDDD</color>
     <color name="colorBackground">#C9DAEA</color>
 
+    <!--Competitions BG Colors-->
+    <color name="computer_science_bg">#7c4dff</color>
+    <color name="robotics_bg">#26a69a</color>
+    <color name="electronics_bg">#4caf50</color>
+    <color name="non_tech_bg">#ffab40</color>
+    <color name="others_bg">#ff6e40</color>
+
+
     <!--Highlight and background colors-->
     <color name="cse_highlight_color">#FF420E</color>
     <color name="cse_background_color">#80f98866</color>
@@ -19,4 +27,8 @@
     <color name="date1_color">#d50000</color>
     <color name="date2_color">#64dd17</color>
     <color name="date3_color">#6200ea</color>
+    <color name="competition_title_color">#fff</color>
+    <color name="competition_title_color_bg">#000</color>
+    <color name="competition_subtitle_color">#fff</color>
+    <color name="competition_subtitle_color_bg">#000</color>
 </resources>

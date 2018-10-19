@@ -1,6 +1,5 @@
-package ml.arjunnair.excelapp.json_models;
+package ml.arjunnair.excelapp.models;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class ContactInfo {
