@@ -113,7 +113,6 @@ public class CompetitionDetailedActivity extends AppCompatActivity {
 
         viewPager = findViewById(R.id.view_pager);
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new CompetitionBasicDetailsFragment(), "Details");
         viewPager.setAdapter(adapter);
 
         TabLayout tabLayout = findViewById(R.id.tab_layout);
@@ -165,7 +164,25 @@ public class CompetitionDetailedActivity extends AppCompatActivity {
         basicDetails.putString("venue", competition.getVenue());
         basicDetails.putInt("color", bg_color);
         basicDetailsFragment.setArguments(basicDetails);
-        adapter.addFragment(basicDetailsFragment, "Details");
+        adapter.addFragment(basicDetailsFragment, "Overview");
+
+        HTMLTextFragment aboutTextFragment = new HTMLTextFragment();
+        Bundle aboutDetails = new Bundle();
+        aboutDetails.putString("text", competition.getAbout());
+        aboutTextFragment.setArguments(aboutDetails);
+        adapter.addFragment(aboutTextFragment, "About");
+
+        HTMLTextFragment rulesTextFragment = new HTMLTextFragment();
+        Bundle rulesDetails = new Bundle();
+        rulesDetails.putString("text", competition.getRules());
+        rulesTextFragment.setArguments(rulesDetails);
+        adapter.addFragment(rulesTextFragment, "Rules");
+
+        HTMLTextFragment contactsTextFragment = new HTMLTextFragment();
+        Bundle contactsDetails = new Bundle();
+        contactsDetails.putString("text", competition.getContact());
+        contactsTextFragment.setArguments(contactsDetails);
+        adapter.addFragment(contactsTextFragment, "Contact");
 
 
         adapter.notifyDataSetChanged();
