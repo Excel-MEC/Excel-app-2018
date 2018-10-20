@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:fillViewport="true">
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="20dp"
+        tools:context=".ui.CompetitionBasicDetailsFragment">
+
+
+        <TextView
+            android:id="@+id/prize_label"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:text="Prize"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/registration_label"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="50dp"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:text="Registration Fee"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/prize_text"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="@+id/prize_label"
+            app:layout_constraintStart_toStartOf="@+id/prize_label"
+            app:layout_constraintTop_toTopOf="@+id/registration_text" />
+
+        <TextView
+            android:id="@+id/registration_text"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="@+id/registration_label"
+            app:layout_constraintHorizontal_bias="0.521"
+            app:layout_constraintStart_toStartOf="@+id/registration_label"
+            app:layout_constraintTop_toBottomOf="@+id/registration_label" />
+
+        <TextView
+            android:id="@+id/date_label"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:text="Date"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+            app:layout_constraintEnd_toEndOf="@+id/prize_label"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/prize_label"
+            app:layout_constraintTop_toBottomOf="@+id/registration_text" />
+
+        <TextView
+            android:id="@+id/venue_label"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Venue"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+            app:layout_constraintEnd_toEndOf="@+id/registration_label"
+            app:layout_constraintHorizontal_bias="0.521"
+            app:layout_constraintStart_toStartOf="@+id/registration_label"
+            app:layout_constraintTop_toTopOf="@+id/date_label" />
+
+        <TextView
+            android:id="@+id/date_text"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="@+id/date_label"
+            app:layout_constraintHorizontal_bias="0.323"
+            app:layout_constraintStart_toStartOf="@+id/date_label"
+            app:layout_constraintTop_toBottomOf="@+id/date_label" />
+
+        <TextView
+            android:id="@+id/venue_text"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="@+id/venue_label"
+            app:layout_constraintStart_toStartOf="@+id/venue_label"
+            app:layout_constraintTop_toBottomOf="@+id/venue_label" />
+
+        <Button
+            android:id="@+id/register_button"
+            style="@style/Theme.MaterialComponents"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:background="#fff"
+            android:text="Register"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/venue_text" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</ScrollView>

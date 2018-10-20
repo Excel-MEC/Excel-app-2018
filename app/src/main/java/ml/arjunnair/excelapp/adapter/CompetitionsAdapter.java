@@ -2,7 +2,7 @@ package ml.arjunnair.excelapp.adapter;
 
 
 import android.content.Context;
-import android.graphics.Color;
+import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -11,18 +11,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import ml.arjunnair.excelapp.Event;
 import ml.arjunnair.excelapp.R;
 import ml.arjunnair.excelapp.models.Competition;
+import ml.arjunnair.excelapp.ui.CompetitionDetailedActivity;
+import ml.arjunnair.excelapp.ui.SplashActivity;
 
-import static android.content.ContentValues.TAG;
+import static android.support.constraint.Constraints.TAG;
 
 public class CompetitionsAdapter extends RecyclerView.Adapter<CompetitionsAdapter.MyViewHolder> {
 
@@ -53,7 +54,9 @@ public class CompetitionsAdapter extends RecyclerView.Adapter<CompetitionsAdapte
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
 
-        Competition competition = competitionList.get(position);
+        final Competition competition = competitionList.get(position);
+
+
 
         holder.title.setText(competition.getName());
         holder.department.setText(competition.getDepartment());
@@ -80,6 +83,14 @@ public class CompetitionsAdapter extends RecyclerView.Adapter<CompetitionsAdapte
                 .error(R.drawable.excel_logo2)
                 .into(holder.logo);
 
+        holder.layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, CompetitionDetailedActivity.class);
+                intent.putExtra("competitionId", competition.getId());
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -96,7 +107,7 @@ public class CompetitionsAdapter extends RecyclerView.Adapter<CompetitionsAdapte
         public TextView department;
         public TextView category;
 
-        public MyViewHolder(View view) {
+        private MyViewHolder(View view) {
             super(view);
             layout = view.findViewById(R.id.layout);
             logo = view.findViewById(R.id.imageView);

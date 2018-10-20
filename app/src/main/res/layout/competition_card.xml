@@ -19,8 +19,6 @@
         android:scaleX="0.7"
         android:scaleY="0.7"
         android:scaleType="fitCenter"
-        android:clickable="true"
-        android:focusable="true"
         app:srcCompat="@drawable/excel_logo2" />
 
     <TextView

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs size="20sp"
+    space="5dp">
+
+    <tab
+        inactiveColor="#bbb"
+        activeColor="@color/colorPrimary"
+        drawable="@drawable/ic_menu_gallery"/>
+
+    <tab
+        inactiveColor="#bbb"
+        activeColor="@color/colorPrimary"
+        drawable="@drawable/ic_menu_gallery"/>
+
+    <tab
+        inactiveColor="#bbb"
+        activeColor="@color/colorPrimary"
+        drawable="@drawable/ic_menu_gallery"/>
+
+    <tab
+        inactiveColor="#bbb"
+        activeColor="@color/colorPrimaryDark"
+        drawable="@drawable/ic_menu_send"/>
+</tabs>
