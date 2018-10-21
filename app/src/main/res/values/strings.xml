@@ -13,4 +13,5 @@
     <string name="competition_default_title">Competition Name</string>
     <string name="competition_default_dept">Department</string>
     <string name="competition_default_cat">Category</string>
+    <string name="retrieved_saved_data_warning">Something wrong, taking previous saved data</string>
 </resources>

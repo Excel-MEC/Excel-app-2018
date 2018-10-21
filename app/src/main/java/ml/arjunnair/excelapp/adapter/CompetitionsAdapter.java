@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ml.arjunnair.excelapp.R;
@@ -28,18 +29,18 @@ import static android.support.constraint.Constraints.TAG;
 public class CompetitionsAdapter extends RecyclerView.Adapter<CompetitionsAdapter.MyViewHolder> {
 
     private Context mContext;
-    private List<Competition> competitionList;
+    private ArrayList<Competition> competitionList;
 
     // Constructors
-    public CompetitionsAdapter(Context mContext, List<Competition> competitionList) {
+    public CompetitionsAdapter(Context mContext, ArrayList<Competition> competitionList) {
         this.mContext = mContext;
         this.competitionList = competitionList;
     }
-    public List<Competition> getEvents() {
+    public ArrayList<Competition> getEvents() {
         return competitionList;
     }
 
-    public void setCompetitions(List<Competition> eventList) {
+    public void setCompetitions(ArrayList<Competition> eventList) {
         this.competitionList = eventList;
     }
 

@@ -1,6 +1,7 @@
 package ml.arjunnair.excelapp.ui;
 
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -18,8 +19,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,8 +41,10 @@ import static android.support.constraint.Constraints.TAG;
 public class CompetitionDetailedActivity extends AppCompatActivity {
 
     private CompetitionDetailed competition;
-    ViewPager viewPager;
-    ViewPagerAdapter adapter;
+    private ViewPager viewPager;
+    private ViewPagerAdapter adapter;
+    private SharedPreferences prefs;
+    private String competitionIdString;
 
 
     @Override
@@ -46,9 +52,23 @@ public class CompetitionDetailedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_competition_detailed);
 
-        Integer competitionId = getIntent().getIntExtra("competitionId", -1);
-        String competitionIdString = Integer.toString(competitionId);
+        prefs = getPreferences(MODE_PRIVATE);
 
+        // Getting competition id for which details should be shown
+        Integer competitionId = getIntent().getIntExtra("competitionId", -1);
+        competitionIdString = Integer.toString(competitionId);
+
+
+        // Binding view pager and tab layout
+        viewPager = findViewById(R.id.view_pager);
+        adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(adapter);
+
+        TabLayout tabLayout = findViewById(R.id.tab_layout);
+        tabLayout.setupWithViewPager(viewPager);
+
+
+        // Back Button should quit the activity
         ImageButton backButton = findViewById(R.id.back_button);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,6 +76,7 @@ public class CompetitionDetailedActivity extends AppCompatActivity {
                 finish();
             }
         });
+
 
         if (InternetConnection.checkConnection(getApplicationContext())) {
             final ProgressDialog dialog;
@@ -87,36 +108,30 @@ public class CompetitionDetailedActivity extends AppCompatActivity {
 
                         competition = response.body();
 
+                        saveCompetitionDetailedData();
                         updateViewItems();
-
-
 
                     } else {
                         Log.d(TAG, "onResponse: Error when gathering details");
-                        Toast.makeText(CompetitionDetailedActivity.this, "Error when gathering details", Toast.LENGTH_SHORT).show();
-//                        Snackbar.make(parentView, "Something wrong", Snackbar.LENGTH_LONG).show();
+                        if (!retrieveCompetitionDetailedData()) {
+                            Toast.makeText(CompetitionDetailedActivity.this, "Error when gathering details", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
 
                 @Override
                 public void onFailure(Call<CompetitionDetailed> call, Throwable t) {
+                    retrieveCompetitionDetailedData();
                     dialog.dismiss();
                 }
             });
 
         } else {
-            Toast.makeText(this, "No network", Toast.LENGTH_SHORT).show();
-//            Snackbar.make(parentView, "No network", Snackbar.LENGTH_LONG).show();
+            if(!retrieveCompetitionDetailedData()) {
+                Toast.makeText(this, "No network", Toast.LENGTH_SHORT).show();
+            }
         }
 
-
-
-        viewPager = findViewById(R.id.view_pager);
-        adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        viewPager.setAdapter(adapter);
-
-        TabLayout tabLayout = findViewById(R.id.tab_layout);
-        tabLayout.setupWithViewPager(viewPager);
 
     }
 
@@ -164,7 +179,7 @@ public class CompetitionDetailedActivity extends AppCompatActivity {
         basicDetails.putString("venue", competition.getVenue());
         basicDetails.putInt("color", bg_color);
         basicDetailsFragment.setArguments(basicDetails);
-        adapter.addFragment(basicDetailsFragment, "Overview");
+        adapter.addFragment(basicDetailsFragment, "Home");
 
         HTMLTextFragment aboutTextFragment = new HTMLTextFragment();
         Bundle aboutDetails = new Bundle();
@@ -188,6 +203,28 @@ public class CompetitionDetailedActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
+    private boolean retrieveCompetitionDetailedData() {
+        Gson gson = new Gson();
+        String json = prefs.getString("CompetitionDetailed"+competitionIdString, "");
+        if (!json.isEmpty()) {
+            competition = gson.fromJson(json, CompetitionDetailed.class);
+
+            updateViewItems();
+
+            Toast.makeText(getApplicationContext(), R.string.retrieved_saved_data_warning, Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        return false;
+    }
+
+    private void saveCompetitionDetailedData() {
+        // Save data to LocalStorage
+        SharedPreferences.Editor prefsEditor = prefs.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(competition);
+        prefsEditor.putString("CompetitionDetailed"+competitionIdString, json);
+        prefsEditor.apply();
+    }
 
     // Adapter for the viewpager using FragmentPagerAdapter
     class ViewPagerAdapter extends FragmentPagerAdapter {

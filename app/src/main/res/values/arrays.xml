@@ -3,7 +3,7 @@
     <array name="icons">
         <item>@drawable/home_icon</item>
         <item>@drawable/calendar_icon</item>
-        <item>@drawable/menu_button</item>
+        <item>@drawable/ic_trophy</item>
         <item>@drawable/menu_button</item>
         <item>@drawable/menu_button</item>
     </array>
