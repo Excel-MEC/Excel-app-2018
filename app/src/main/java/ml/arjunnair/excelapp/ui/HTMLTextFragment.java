@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.text.Spanned;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +15,11 @@ import android.widget.TextView;
 
 import ml.arjunnair.excelapp.R;
 
+import static android.support.constraint.Constraints.TAG;
+
 public class HTMLTextFragment extends Fragment {
 
-    String htmlText = "No Description Provided";
+    String htmlText = "No description provided";
 
     public HTMLTextFragment() {
         // Required empty public constructor
@@ -43,7 +46,9 @@ public class HTMLTextFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         TextView textView = view.findViewById(R.id.html_text);
-        Spanned sp = Html.fromHtml(htmlText);
-        textView.setText(sp);
+        if (htmlText != null) {
+            Spanned sp = Html.fromHtml(htmlText);
+            textView.setText(sp);
+        }
     }
 }

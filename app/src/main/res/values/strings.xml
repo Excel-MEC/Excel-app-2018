@@ -14,4 +14,5 @@
     <string name="competition_default_dept">Department</string>
     <string name="competition_default_cat">Category</string>
     <string name="retrieved_saved_data_warning">Something wrong, taking previous saved data</string>
+    <string name="no_content_available">No Description Provided</string>
 </resources>

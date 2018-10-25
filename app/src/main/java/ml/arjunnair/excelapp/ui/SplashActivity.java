@@ -61,10 +61,10 @@ public class SplashActivity extends AppCompatActivity {
                 newFragmentClass = HomeFragment.class;
                 break;
             case 1:
-                newFragmentClass = EventFragment.class;
+                newFragmentClass = CompetitionsFragment.class;
                 break;
             case 2:
-                newFragmentClass = CompetitionsFragment.class;
+                newFragmentClass = EventsFragment.class;
                 break;
         }
 

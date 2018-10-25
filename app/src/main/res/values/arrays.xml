@@ -2,10 +2,10 @@
 <resources>
     <array name="icons">
         <item>@drawable/home_icon</item>
-        <item>@drawable/calendar_icon</item>
         <item>@drawable/ic_trophy</item>
-        <item>@drawable/menu_button</item>
-        <item>@drawable/menu_button</item>
+        <item>@drawable/ic_compass</item>
+        <item>@drawable/calendar_icon</item>
+        <item>@drawable/ic_user</item>
     </array>
     <array name="colors">
         <item>@android:color/holo_blue_light</item>

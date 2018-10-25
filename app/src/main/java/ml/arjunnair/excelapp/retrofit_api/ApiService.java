@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import ml.arjunnair.excelapp.models.Competition;
 import ml.arjunnair.excelapp.models.CompetitionDetailed;
+import ml.arjunnair.excelapp.models.Contact;
 import ml.arjunnair.excelapp.models.Event;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -26,4 +27,7 @@ public interface ApiService {
 
     @GET("event")
     Call<ArrayList<Event>> getEvents();
+
+    @GET("contact")
+    Call<ArrayList<Contact>> getContacts();
 }
