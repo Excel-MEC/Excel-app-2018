@@ -66,6 +66,9 @@ public class SplashActivity extends AppCompatActivity {
             case 2:
                 newFragmentClass = EventsFragment.class;
                 break;
+            case 4:
+                newFragmentClass = ContactsFragment.class;
+                break;
         }
 
         if (currentFragment.getClass() == newFragmentClass) {
