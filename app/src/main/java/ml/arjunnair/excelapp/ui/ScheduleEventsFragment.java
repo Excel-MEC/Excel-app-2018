@@ -23,6 +23,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import ml.arjunnair.excelapp.R;
@@ -129,6 +130,7 @@ public class ScheduleEventsFragment extends Fragment {
                     if(response.isSuccessful()) {
 
                         scheduleEvents = response.body();
+                        Collections.sort(scheduleEvents);
                         Log.d(TAG, "onResponse: success");
 
                         saveScheduleEventsData();

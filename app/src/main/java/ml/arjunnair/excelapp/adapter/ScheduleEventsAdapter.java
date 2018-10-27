@@ -1,6 +1,7 @@
 package ml.arjunnair.excelapp.adapter;
 
 import android.content.Context;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,7 +34,7 @@ public class ScheduleEventsAdapter extends RecyclerView.Adapter<ScheduleEventsAd
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.day_card, parent, false);
+                .inflate(R.layout.schedule_event_card, parent, false);
 
         return new MyViewHolder(itemView);
     }
@@ -44,8 +45,19 @@ public class ScheduleEventsAdapter extends RecyclerView.Adapter<ScheduleEventsAd
         final ScheduleEvent scheduleEvent = scheduleEventsList.get(position);
 
         holder.title.setText(scheduleEvent.getName());
-        holder.startTime.setText(scheduleEvent.getStart().toString());
-        holder.endTime.setText(scheduleEvent.getEnd().toString());
+
+        String startTimeString = String.format(java.util.Locale.US,"%04.2f AM", scheduleEvent.getStart());
+        if (scheduleEvent.getStart() > 12) {
+            startTimeString = String.format(java.util.Locale.US,"%04.2f PM", scheduleEvent.getStart() - 11);
+        }
+        String endTimeString = String.format(java.util.Locale.US,"%04.2f AM", scheduleEvent.getStart());
+        if (scheduleEvent.getStart() > 12) {
+            endTimeString = String.format(java.util.Locale.US,"%04.2f PM", scheduleEvent.getStart() - 11);
+        }
+
+        holder.startTime.setText(String.format(java.util.Locale.US, "%8s", startTimeString));
+        holder.endTime.setText(String.format(java.util.Locale.US, "%8s", endTimeString));
+//        holder.endTime.setText(scheduleEvent.getEnd().toString());
         holder.category.setText(scheduleEvent.getDepartment());
         holder.venue.setText(scheduleEvent.getVenue());
     }
@@ -59,7 +71,7 @@ public class ScheduleEventsAdapter extends RecyclerView.Adapter<ScheduleEventsAd
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public RelativeLayout layout;
+        public ConstraintLayout layout;
         public TextView startTime;
         public TextView endTime;
         public TextView title;

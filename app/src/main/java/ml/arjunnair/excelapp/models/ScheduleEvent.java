@@ -4,7 +4,7 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ScheduleEvent {
+public class ScheduleEvent implements Comparable<ScheduleEvent>{
 
     @SerializedName("contributors")
     @Expose
@@ -127,5 +127,11 @@ public class ScheduleEvent {
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+    @Override
+    public int compareTo(ScheduleEvent scheduleEvent) {
+        return getStart().compareTo(scheduleEvent.getStart());
+    }
+
 
 }
