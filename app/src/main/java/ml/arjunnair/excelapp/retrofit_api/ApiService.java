@@ -6,6 +6,7 @@ import ml.arjunnair.excelapp.models.Competition;
 import ml.arjunnair.excelapp.models.CompetitionDetailed;
 import ml.arjunnair.excelapp.models.Contact;
 import ml.arjunnair.excelapp.models.Event;
+import ml.arjunnair.excelapp.models.ScheduleEvent;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -30,4 +31,11 @@ public interface ApiService {
 
     @GET("contact")
     Call<ArrayList<Contact>> getContacts();
+
+    @GET("day_one")
+    Call<ArrayList<ScheduleEvent>> getScheduleOne();
+
+    @GET("{day_num}")
+    Call<ArrayList<ScheduleEvent>> getSchedule(@Path("day_num") String num);
+
 }

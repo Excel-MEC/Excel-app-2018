@@ -1,8 +1,8 @@
 package ml.arjunnair.excelapp.ui;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,7 +14,6 @@ import android.view.animation.TranslateAnimation;
 import com.ramotion.circlemenu.CircleMenuView;
 import android.support.annotation.NonNull;
 
-import ml.arjunnair.excelapp.EventFragment;
 import ml.arjunnair.excelapp.R;
 
 public class SplashActivity extends AppCompatActivity {
@@ -27,7 +26,7 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
 //        Initialize fragment
-        final FragmentManager fragmentManager = getFragmentManager();
+        final FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.fragmentContainer, new HomeFragment());
         fragmentTransaction.commit();
@@ -52,7 +51,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void changeFragment(int index) {
-        Fragment currentFragment = getFragmentManager().findFragmentById(R.id.fragmentContainer);
+        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragmentContainer);
 
         Class newFragmentClass = HomeFragment.class;
 
@@ -66,6 +65,9 @@ public class SplashActivity extends AppCompatActivity {
             case 2:
                 newFragmentClass = EventsFragment.class;
                 break;
+            case 3:
+                newFragmentClass = ScheduleFragment.class;
+                break;
             case 4:
                 newFragmentClass = ContactsFragment.class;
                 break;
@@ -75,7 +77,7 @@ public class SplashActivity extends AppCompatActivity {
             return;
         }
         try {
-            FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragmentContainer, (Fragment) newFragmentClass.newInstance());
             fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
             fragmentTransaction.commit();

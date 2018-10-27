@@ -1,7 +1,7 @@
 package ml.arjunnair.excelapp.ui;
 
+
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -25,9 +25,9 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import ml.arjunnair.excelapp.adapter.CompetitionsAdapter;
 import ml.arjunnair.excelapp.R;
-import ml.arjunnair.excelapp.models.Competition;
+import ml.arjunnair.excelapp.adapter.ScheduleEventsAdapter;
+import ml.arjunnair.excelapp.models.ScheduleEvent;
 import ml.arjunnair.excelapp.retrofit_api.ApiService;
 import ml.arjunnair.excelapp.retrofit_api.RetroClient;
 import ml.arjunnair.excelapp.util.GridSpacingItemDecoration;
@@ -39,49 +39,37 @@ import retrofit2.Response;
 import static android.content.Context.MODE_PRIVATE;
 import static android.support.constraint.Constraints.TAG;
 
+public class ScheduleEventsFragment extends Fragment {
 
-public class CompetitionsFragment extends Fragment {
+    private String dayNum= "day_one";
 
     private RecyclerView recyclerView;
     private View parentView;
     private SharedPreferences mPrefs;
 
-    private ArrayList<Competition> competitionsList;
-    private CompetitionsAdapter adapter;
+    private ArrayList<ScheduleEvent> scheduleEvents;
+    private ScheduleEventsAdapter adapter;
 
 
-    public CompetitionsFragment() {
+    public ScheduleEventsFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate: ");
-
+        Bundle basicDetails = getArguments();
+        if (basicDetails != null) {
+            dayNum = basicDetails.getString("day_num");
+        }
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        Log.d(TAG, "onCreateView: ");
-
-        return inflater.inflate(R.layout.fragment_competitions, container, false);
-    }
-
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Log.d(TAG, "onAttach: ");
-
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
+        return inflater.inflate(R.layout.fragment_schedule_events, container, false);
     }
 
     @Override
@@ -90,18 +78,18 @@ public class CompetitionsFragment extends Fragment {
 
         mPrefs = getActivity().getPreferences(MODE_PRIVATE);
 
-        competitionsList = new ArrayList<>();
+        scheduleEvents = new ArrayList<>();
 
         parentView = view.getRootView();
         recyclerView = getView().findViewById(R.id.recycler_view);
 
 
-        adapter = new CompetitionsAdapter(getActivity(), competitionsList);
+        adapter = new ScheduleEventsAdapter(getActivity(), scheduleEvents);
 
 
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
+        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 1);
         recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(4), true));
+        recyclerView.addItemDecoration(new GridSpacingItemDecoration(1, dpToPx(4), false));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
 
@@ -114,7 +102,7 @@ public class CompetitionsFragment extends Fragment {
              * Progress Dialog for User Interaction
              */
             dialog = new ProgressDialog(getActivity());
-            dialog.setTitle("Getting Competitions info");
+            dialog.setTitle("Getting Schedule info");
             dialog.setMessage("wait maybe");
             dialog.show();
 
@@ -124,60 +112,63 @@ public class CompetitionsFragment extends Fragment {
             /**
              * Calling JSON
              */
-            Call<ArrayList<Competition>> call = api.getCompetitions();
+//            Call<ArrayList<ScheduleEvent>> call = api.getScheduleOne();
+            Call<ArrayList<ScheduleEvent>> call = api.getSchedule(dayNum);
 
 
             /**
              * Enqueue Callback will be call when get response...
              */
-            call.enqueue(new Callback<ArrayList<Competition>>() {
+            call.enqueue(new Callback<ArrayList<ScheduleEvent>>() {
                 @Override
-                public void onResponse(Call<ArrayList<Competition>> call, Response<ArrayList<Competition>> response) {
+                public void onResponse(Call<ArrayList<ScheduleEvent>> call, Response<ArrayList<ScheduleEvent>> response) {
                     //Dismiss Dialog
                     Log.d(TAG, "onResponse: ");
                     dialog.dismiss();
 
                     if(response.isSuccessful()) {
 
-                        competitionsList = response.body();
+                        scheduleEvents = response.body();
+                        Log.d(TAG, "onResponse: success");
 
-                        saveCompetitionsData();
+                        saveScheduleEventsData();
 
                         // Update adapter with the fetched data
-                        adapter.setCompetitions(competitionsList);
+                        adapter.setScheduleEvents(scheduleEvents);
                         adapter.notifyDataSetChanged();
 
                     } else {
-                        if (!retrieveCompetitionsData()) {
+                        if (!retrieveScheduleEventsData()) {
                             Snackbar.make(parentView, "Something wrong", Snackbar.LENGTH_LONG).show();
                         }
                     }
                 }
 
                 @Override
-                public void onFailure(Call<ArrayList<Competition>> call, Throwable t) {
-                    retrieveCompetitionsData();
+                public void onFailure(Call<ArrayList<ScheduleEvent>> call, Throwable t) {
+                    retrieveScheduleEventsData();
                     dialog.dismiss();
+                    Log.d(TAG, "onFailure: failed" + t.getMessage());
                 }
             });
 
         } else {
-            if (!retrieveCompetitionsData()) {
+            if (!retrieveScheduleEventsData()) {
                 Snackbar.make(parentView, "No network", Snackbar.LENGTH_LONG).show();
             }
         }
 
-}
+    }
 
-    private boolean retrieveCompetitionsData() {
+    private boolean retrieveScheduleEventsData() {
         Gson gson = new Gson();
-        String json = mPrefs.getString("CompetitionsList", "");
+        String json = mPrefs.getString("ScheduleEventsList", "");
         if (!json.isEmpty()) {
-            Type type = new TypeToken< List<Competition> >() {}.getType();
-            competitionsList = gson.fromJson(json, type);
+            Type type = new TypeToken< List<ScheduleEvent> >() {}.getType();
+            scheduleEvents = gson.fromJson(json, type);
 
             // Update adapter with the fetched data
-            adapter.setCompetitions(competitionsList);
+            adapter.setScheduleEvents(scheduleEvents);
             adapter.notifyDataSetChanged();
 
             Toast.makeText(getActivity(), R.string.retrieved_saved_data_warning, Toast.LENGTH_SHORT).show();
@@ -186,12 +177,12 @@ public class CompetitionsFragment extends Fragment {
         return false;
     }
 
-    private void saveCompetitionsData() {
+    private void saveScheduleEventsData() {
         // Save data to LocalStorage
         SharedPreferences.Editor prefsEditor = mPrefs.edit();
         Gson gson = new Gson();
-        String json = gson.toJson(competitionsList);
-        prefsEditor.putString("CompetitionsList", json);
+        String json = gson.toJson(scheduleEvents);
+        prefsEditor.putString("ScheduleEventsList", json);
         prefsEditor.apply();
     }
 
