@@ -83,6 +83,7 @@ public class CompetitionsAdapter extends RecyclerView.Adapter<CompetitionsAdapte
                 bg_color = ContextCompat.getColor(mContext, R.color.computer_science_bg);
         }
 //        bg_color = ContextCompat.getColor(mContext, R.color.competition_bg);
+        Log.d(TAG, "onBindViewHolder: " + bg_color + ", " + Color.parseColor("#1a0000"));
         holder.layout.setBackgroundColor(bg_color);
 
         Picasso.with(mContext).load(competition.getImg())
@@ -108,7 +109,7 @@ public class CompetitionsAdapter extends RecyclerView.Adapter<CompetitionsAdapte
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public CardView layout;
+        public ConstraintLayout layout;
         public ImageView logo;
         public TextView title;
         public TextView department;
