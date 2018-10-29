@@ -11,6 +11,7 @@
     <color name="electronics_bg">#4caf50</color>
     <color name="non_tech_bg">#ffab40</color>
     <color name="others_bg">#ff6e40</color>
+    <color name="competition_bg">#bdbdbd</color>
 
 
     <!--Highlight and background colors-->

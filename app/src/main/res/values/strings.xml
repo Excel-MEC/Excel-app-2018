@@ -7,12 +7,22 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="competition_img_desc">Competition Logo</string>
     <string name="competition_default_title">Competition Name</string>
     <string name="competition_default_dept">Department</string>
     <string name="competition_default_cat">Category</string>
     <string name="retrieved_saved_data_warning">Something wrong, taking previous saved data</string>
     <string name="no_content_available">No Description Provided</string>
+    <string name="event_title">Event Title</string>
+    <string name="event_image">Event Image</string>
+    <string name="expand_collapse_button">Expand Collapse Button</string>
+    <string name="contact_designation">Designation</string>
+    <string name="contact_name">Name</string>
+    <string name="contact_email_id">Email ID</string>
+    <string name="contact_phone_number">Phone Number</string>
+    <string name="contact_photo">Contact Photo</string>
+    <string name="event_start_time">Start Time</string>
+    <string name="event_end_time">End Time</string>
+    <string name="event_category">Category</string>
+    <string name="event_venue">Venue</string>
 </resources>

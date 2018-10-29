@@ -1,7 +1,9 @@
 package ml.arjunnair.excelapp.adapter;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.Spanned;
@@ -36,8 +38,9 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
         this.eventsList = eventList;
     }
 
+    @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.event_card, parent, false);
 
@@ -45,7 +48,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
     }
 
     @Override
-    public void onBindViewHolder(final MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final MyViewHolder holder, int position) {
 
         final Event event = eventsList.get(position);
 
@@ -86,7 +89,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.MyViewHold
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public LinearLayout layout;
+        public CardView layout;
         public ImageView imageView;
         public TextView title;
         public TextView content;
